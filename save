@@ -1,0 +1,200 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.11
+-- Dumped by pg_dump version 14.11
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: account; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.account (
+    accountid bigint NOT NULL,
+    createtime timestamp without time zone,
+    isblocked boolean,
+    accounttype character varying,
+    nickname character varying,
+    phonenumber character varying,
+    email character varying,
+    freqlogintype character varying,
+    lastlogintime bigint,
+    accountlevel character varying
+);
+
+
+ALTER TABLE public.account OWNER TO postgres;
+
+--
+-- Name: accounttransferaccount; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.accounttransferaccount (
+    fromid bigint,
+    toid bigint,
+    amount double precision,
+    createtime timestamp without time zone,
+    ordernum character varying,
+    comment character varying,
+    paytype character varying,
+    goodstype character varying
+);
+
+
+ALTER TABLE public.accounttransferaccount OWNER TO postgres;
+
+--
+-- Name: loan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.loan (
+    loanid bigint NOT NULL,
+    loanamount double precision,
+    balance double precision,
+    createtime timestamp without time zone,
+    loanusage character varying,
+    interestrate double precision
+);
+
+
+ALTER TABLE public.loan OWNER TO postgres;
+
+--
+-- Name: loandepositaccount; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.loandepositaccount (
+    loanid bigint,
+    accountid bigint,
+    amount double precision,
+    createtime timestamp without time zone
+);
+
+
+ALTER TABLE public.loandepositaccount OWNER TO postgres;
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    personid bigint NOT NULL,
+    personname character varying,
+    isblocked boolean,
+    createtime timestamp without time zone,
+    gender character varying,
+    birthday timestamp without time zone,
+    country character varying,
+    city character varying
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- Name: personapplyloan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personapplyloan (
+    personid bigint,
+    loanid bigint,
+    createtime timestamp without time zone,
+    organization character varying
+);
+
+
+ALTER TABLE public.personapplyloan OWNER TO postgres;
+
+--
+-- Name: personguaranteeperson; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personguaranteeperson (
+    fromid bigint,
+    toid bigint,
+    createtime timestamp without time zone,
+    relation character varying
+);
+
+
+ALTER TABLE public.personguaranteeperson OWNER TO postgres;
+
+--
+-- Name: personownaccount; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personownaccount (
+    personid bigint,
+    accountid bigint,
+    createtime timestamp without time zone
+);
+
+
+ALTER TABLE public.personownaccount OWNER TO postgres;
+
+--
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.account (accountid, createtime, isblocked, accounttype, nickname, phonenumber, email, freqlogintype, lastlogintime, accountlevel) FROM stdin;
+281474976715389	2020-01-02 11:18:35.963	f	brokerage account	Marcela Schuman	711-5897	gmx.com	POS	1777559144018	Basic level
+844699808055006	2020-01-04 21:29:17.327	f	credit card	Emmanuel Harrold	754-1794	gmx.com	PHONE	1658612518356	Silver level
+1125899906850268	2020-01-05 06:59:33	f	credit card	Hortense Zaller	177-9785	gmx.com	MAC	1880467609816	Silver level
+1689674493990551	2020-01-07 07:41:08.643	f	merchant account	Zachery Bump	423-0026	gmail.com	IPv4	1834434403101	Basic level
+1688849860276589	2020-01-07 11:50:56.191	f	brokerage account	Anjanette Samperi	917-2802	zoho.com	IPv4	1694301720306	Basic level
+2251799813685615	2020-01-09 09:22:27.094	f	custodial account	Geraldine Bonnie	741-2089	gmx.com	RFID	1680890471165	Basic level
+4613939192630608734	2020-01-09 15:56:09.402	f	prepaid card	Donnell Acero	341-1419	gmx.com	IPv4	1865454774935	Basic level
+2252074691603838	2020-01-09 16:04:19.699	f	merchant account	Aubrey Riedel	304-2816	gmail.com	IPv4	1678645243226	Basic level
+4614220392729413289	2020-01-10 01:29:41.864	f	merchant account	Marcy Meservey	653-1470	gmail.com	IPv4	1670642203153	Platinum level
+2533274790404746	2020-01-10 03:04:24.437	f	credit card	Christena Longanecker	153-7517	hotmail.com	POS	1719245439572	Basic level
+4614220667607332302	2020-01-10 17:08:04.628	f	brokerage account	Keenan Corner	265-5784	yahoo.com	RFID	1638629446791	Basic level
+4614500768194507750	2020-01-11 07:49:49.541	f	foreign currency	Jamey Berdan	228-1774	hotmail.com	IPv6	1723671964554	Basic level
+4614501043072404550	2020-01-11 14:59:42.316	f	certificate of deposit	Sherwood Miranda	567-1714	gmx.com	PHONE	1815976070908	Silver level
+4614782243171217523	2020-01-12 11:21:07.903	f	debit card	Vito Murrish	940-3138	safat.info	IPv4	1660887833614	Basic level
+3378249476361720	2020-01-13 19:09:14.754	f	trust account	In Merganthaler	913-2648	hotmail.com	IPv6	1760613843128	Gold level
+3377699720533015	2020-01-13 23:53:39.724	f	credit card	Lakisha Klinglesmith	704-2858	gmail.com	WIFI	1664673044718	Basic level
+3659999330980836	2020-01-14 02:25:48.231	f	escrow account	Federico Schiavone	836-0247	yahoo.com	QRCode	1756154998014	Silver level
+4615346567514161946	2020-01-14 13:02:48.114	t	internet account	Bennett Hintermeister	068-8219	yahoo.com	ATM	1878289776983	Basic level
+4615345742880441418	2020-01-14 23:41:13.664	f	foreign currency	Tressie Cluesman	075-5789	gmail.com	IPv4	1650496360586	Basic level
+4615628042490892278	2020-01-15 03:06:40.732	f	foreign currency	Wendell Teramoto	183-2583	yahoo.com	RFID	1824473355796	Basic level
+3940924551878008	2020-01-15 10:52:03.14	f	brokerage account	Albina Inzano	393-2974	hotmail.com	MAC	1615704441503	Basic level
+4615908967711788069	2020-01-16 09:27:28.196	f	corporate account	Arturo Coner	576-1750	yahoo.com	ATM	1752846963876	Basic level
+4615909792345503416	2020-01-16 09:40:49.243	f	escrow account	Danae Jeanphilippe	878-5892	gmail.com	POS	1655133704500	Silver level
+4615908417955965345	2020-01-16 13:21:58.582	f	brokerage account	Gertha Mantione	882-8263	gmail.com	PHONE	1682613783091	Silver level
+4615908143078060953	2020-01-16 14:32:50.821	f	corporate account	Anette Jannetti	938-1082	gmail.com	QRCode	1606582887221	Silver level
+4615908143078063184	2020-01-16 17:13:33.011	f	escrow account	Arron Brix	393-4478	hotmail.com	QRCode	1806192830947	Silver level
+4504149383204693	2020-01-17 02:01:20.73	f	merchant account	Geraldo Bueckers	252-4444	gmx.com	ATM	1701236041679	Basic level
+4616190992444309513	2020-01-17 04:50:30.845	f	brokerage account	Myrna Pageau	839-9184	gmail.com	WIFI	1584984365527	Basic level
+4616190442688487830	2020-01-17 05:00:44.094	f	brokerage account	Nikia Lengle	181-3027	zoho.com	QRCode	1685556236169	Basic level
+4616191267322209486	2020-01-17 13:54:09.743	f	custodial account	Celina Kruzan	647-0817	gmx.com	PHONE	1757757360610	Basic level
+4616190442688480177	2020-01-17 23:16:10.412	f	corporate account	Aide Kiebler	939-2824	sexriga.lv	MAC	1597000964966	Silver level
+4616471642787304010	2020-01-18 01:29:06.772	f	trust account	Lakeisha Stray	015-8251	gmail.com	IPv4	1851150237481	Basic level
+4616471093031475460	2020-01-18 05:52:58.059	f	merchant account	Ardella Buzzell	257-7903	zoho.com	RFID	1811868508444	Basic level
+4616471093031472216	2020-01-18 06:09:03.521	f	prepaid card	Billye Cham	287-7161	gmail.com	RFID	1753149697850	Basic level
+4616471093031481453	2020-01-18 06:20:58.941	f	debit card	Hank Montis	810-8579	yogaelements.com	ATM	1818324959137	Basic level
+4616471917665191601	2020-01-18 08:42:53.165	f	internet account	Jonathon Dispirito	028-9709	gmail.com	NFC	1709037830183	Basic level
+4616472192543117087	2020-01-18 22:58:35.172	f	credit card	Gino Braucht	963-3024	hotmail.com	IPv4	1603667103158	Elite level
+5067374214526394	2020-01-19 19:10:18.492	f	merchant account	Jeffery Guaman	152-5794	yahoo.com	MAC	1804163594446	Silver level
+4616753392641906984	2020-01-19 21:25:32.946	f	merchant account	Zulema Beydler	121-1538	yahoo.com	NFC	1877549818575	Platinum level
+4617034867618626167	2020-01-20 09:06:36.167	f	escrow account	Franklyn Metzger	060-5146	gmail.com	POS	1594944424285	Basic level
+5630049290030891	2020-01-21 05:24:36.822	f	corporate account	Tomi Luco	671-6410	gmail.com	RFID	1622752441050	Basic level
+5629499534233254	2020-01-21 06:41:25.647	f	debit card	Gerald Kotterna	147-9063	gmail.com	IPv4	1704058984406	Silver level
+4617317442106957127	2020-01-21 12:04:37.069	f	trust account	Carlyn Ratzloff	747-9289	yahoo.com	PHONE	1599384919873	Basic level
+4617315792839513340	2020-01-21 18:02:16.826	f	foreign currency	Madie Doehring	709-2656	gmail.com	IPv6	1622836887996	Silver level
+4617598917083673306	2020-01-22 05:47:16.375	t	certificate of deposit	Lezlie Grambo	838-8843	gmail.com	POS	1712711200516	Silver level
+5911524266754298	2020-01-22 10:49:35.692	f	brokerage account	Audra Vilchis	921-9098	gmail.com	PHONE	1833908334014	Basic level
