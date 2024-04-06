@@ -1,0 +1,11 @@
+ Schema |          Name          | Type  |  Owner
+--------+------------------------+-------+----------
+ public | account                | table | postgres
+ public | accounttransferaccount | table | postgres
+ public | loan                   | table | postgres
+ public | loandepositaccount     | table | postgres
+ public | person                 | table | postgres
+ public | personapplyloan        | table | postgres
+ public | personguaranteeperson  | table | postgres
+ public | personownaccount       | table | postgres
+
