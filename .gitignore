@@ -3,4 +3,6 @@
 .nvimlog
 *.swp
 /data.sql
+*.zip
+*.pdf
 
